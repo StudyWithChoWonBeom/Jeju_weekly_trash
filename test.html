@@ -1,0 +1,106 @@
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    nav{
+        float: left;
+        padding : 20px 20px 0px 0px;
+
+    }
+    li{
+        list-style: none;
+
+    }
+    button {
+        width: 100px;
+        height: 50px;
+        padding : 3px 10px 3px 10px;
+        font-size: 80%;
+        margin: 5px 0 5px 0;
+    }
+</style>
+<body>
+    <nav>
+        <ul>
+            <li class="to-day" id="today">
+                <button>오늘<br>Today</button></li>
+            <li class="weekly" id="monday">
+                <button >월요일<br>Monday</button>
+            </li>
+            <li class="weekly" id="tuesday">
+                <button>화요일<br>Tuesday</button>
+            </li>
+            <li class="weekly" id="wednesday">
+                <button>수요일<br>Wednesday</button>
+            </li>
+            <li class="weekly" id="thursday">
+                <button>목요일<br>Thursday</button>
+            </li>
+            <li class="weekly" id="friday">
+                <button>금요일<br>Friday</button>
+            </li>
+            <li class="weekly"  id="saturday">
+                <button>토요일<br>Saturday</button>
+            </li>
+            <li class="weekly" id="sunday">
+                <button>일요일<br>Sunday</button>
+            </li>
+        </ul>
+    </nav>
+    <h1 id="todayname">날짜</h1>
+    <ul id="info">내용</ul> 
+</body>
+<script>
+const weeklytrash = {
+    "sunday":{day:"일", trash:["종이류", "불에 안타는 쓰레기"]},
+    "monday":{day:"월", trash:["플라스틱류", "비닐류"]},
+    "tuesday":{day:"화", trash:["플라스틱류"]},
+    "wednesday":{day:"수", trash:["종이류", "불에 안타는 쓰레기"]},
+    "thursday":{day:"목", trash:["플라스틱류"]},
+    "friday":{day:"금", trash:["종이류", "비닐류"]},
+    "saturday":{day:"토", trash:["플라스틱류"]}   
+}
+
+
+let date = (new Date).getDay()
+let selecteddata = weeklytrash[Object.keys(weeklytrash)[date]]
+
+
+function todaytrash(date) {
+    let day = date.day
+    let whattrash = date.trash.join()
+    // console.log(whattrash, "여기")
+    // console.log(day)
+
+    document.querySelector("#todayname").innerHTML = `${day}요일`;
+    document.querySelector("#info").innerHTML = `<li>${whattrash}<li/>`;
+ }
+
+todaytrash(selecteddata)
+
+
+const $nav = document.querySelector("nav")
+$nav.addEventListener('click', function(e) {
+    click(e)
+})
+
+
+function click(e) {
+    if (e.target.closest(".weekly")) {
+    let event = weeklytrash[e.target.closest(".weekly").id]
+    todaytrash(event);
+    }
+    if (e.target.closest(".to-day")) {
+        todaytrash(selecteddata);
+    }
+}
+
+
+
+
+</script>
+</html>
